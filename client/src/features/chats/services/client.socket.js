@@ -1,7 +1,7 @@
 import { io } from "socket.io-client";
 
 // Singleton — created once, shared everywhere
-const socket = io("http://localhost:3000", {
+const socket = io("https://prepelexity-project.onrender.com", {
     withCredentials: true,
     autoConnect: true,
 });
@@ -14,4 +14,4 @@ socket.on("disconnect", () => {
     console.log("❌ Disconnected from Socket.IO server");
 });
 
-export default socket;
+export default socket;

@@ -2,7 +2,7 @@ import axios from "axios";
 
 // 1. Axios Instance Setup
 export const Api = axios.create({
-    baseURL: "http://localhost:3000/api/chats",
+    baseURL: "https://prepelexity-project.onrender.com/api/chats",
     withCredentials: true, // Cookies aur Session ke liye zaroori hai
     headers: {
         "Content-Type": "application/json",

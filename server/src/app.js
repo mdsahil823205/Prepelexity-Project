@@ -15,7 +15,7 @@ app.use(express.static(path.resolve("./public")));
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
