@@ -31,9 +31,9 @@ export const register = async (req, res, next) => {
       { expiresIn: "1d" },
     );
     res.cookie("emailVerificationToken", emailVerificationToken, {
-      httpOnly: false, // set to true for production
-      secure: false, // set to true for production
-      sameSite: "lax", // set to 'strict' for production
+      httpOnly: true, // set to true for development
+      secure: true, // set to true for development
+      sameSite: "strict", // set to 'strict' for development
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     await sendMail({
