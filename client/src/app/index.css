@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+/* 💡 Required for manual dark mode toggle in v4 */
+@custom-variant dark (&:is(.dark, .dark *));
+
+/* Smooth theme transitions */
+* {
+    @apply transition-colors duration-200;
+}
+
+@theme {
+    --color-main-bg: #f3f3f5;
+    --color-main-dark: #07090f;
+}
+
+/* Hide scrollbars globally (all browsers) */
+*::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE / Edge */
+}
