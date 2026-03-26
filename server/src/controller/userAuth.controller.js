@@ -30,7 +30,12 @@ export const register = async (req, res, next) => {
       process.env.JWT_KEY,
       { expiresIn: "1d" },
     );
-    res.cookie("emailVerificationToken", emailVerificationToken);
+    res.cookie("emailVerificationToken", emailVerificationToken, {
+      httpOnly: true,
+      secure: true, // set to false for development
+      sameSite: "strict", // set to 'lax' for development
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
     await sendMail({
       to: user.email,
       subject: "Welcome to PrepLexity",
@@ -136,7 +141,12 @@ export const login = async (req, res) => {
         expiresIn: "1d",
       },
     );
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // set to false for development
+      sameSite: "strict", // set to 'lax' for development
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
     const userObj = user.toObject();
     delete userObj.password;
     return res.status(200).json({
@@ -178,7 +188,11 @@ export const getMe = async (req, res) => {
  * @access Private
  */
 export const logout = async (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true, // set to false for development
+    sameSite: "strict", // set to 'lax' for development
+  });
   return res.status(200).json({
     success: true,
     message: "logout successful",
