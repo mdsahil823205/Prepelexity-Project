@@ -31,9 +31,9 @@ export const register = async (req, res, next) => {
       { expiresIn: "1d" },
     );
     res.cookie("emailVerificationToken", emailVerificationToken, {
-      httpOnly: true,
-      secure: true, // set to false for development
-      sameSite: "strict", // set to 'lax' for development
+      httpOnly: false, // set to true for production
+      secure: false, // set to true for production
+      sameSite: "lax", // set to 'strict' for production
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     await sendMail({
@@ -86,9 +86,11 @@ export const verifyEmail = async (req, res) => {
     user.verified = true;
     await user.save();
     const html = `
-    <h1>Email Verified Successfully!</h1>
-    <p>Your email has been verified. You can now log in to your account.</p>
-    <a href="http://localhost:3000/api/auth/login">Go to Login</a>
+    <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: white;">
+    <h1 style="color: black;">Email Verified Successfully!</h1>
+    <p style="color: black;">Your email has been verified. You can now log in to your account.</p>
+    <a href="http://localhost:3000/api/auth/login" style="color: blue; text-decoration: none; font-size: 1.2rem;">Go to Login</a>
+    </main>
     `;
     return res.send(html);
   } catch (error) {
@@ -153,7 +155,6 @@ export const login = async (req, res) => {
       success: true,
       message: "login successful",
       user: userObj,
-      token,
     });
   } catch (error) {
     return res.status(500).json({ message: "internal server error" });
